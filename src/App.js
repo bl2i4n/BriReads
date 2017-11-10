@@ -1,6 +1,7 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
+import {Route} from 'react-router-dom';
 
 class BooksApp extends React.Component {
   constructor (){
@@ -14,9 +15,21 @@ class BooksApp extends React.Component {
 
     return(
       <div className="app">
-        <Route path="" render={ () => ()
+        // TODO: need to create the search component
+        <Route path="/search" render={ () => (
+            <div>Hello MyReads</div>
+        )} />
 
-        } />
+        <Route exact path="/" render={ () => (
+            <div className="list-books">
+              <div className="list-books-title">
+                <h1>MyReads</h1>
+              </div>
+              <div className="list-books-content">
+              </div>
+            </div>
+        )} />
+
       </div>
     );
   }
