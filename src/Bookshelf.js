@@ -3,7 +3,19 @@ import React, {Component} from 'react';
 class Bookshelf extends Component {
   state = {
     //add status of books for option values here
+    status: 'none'
   }
+
+  moveBooks = (status) =>{
+    const {books} = this.props;
+    return books.filter((book) => book.status === status);
+  }
+
+  //just to check if the selection is pushed to console
+  handleChange = (e) =>{
+    console.log(e);
+  }
+
   render () {
     const {name, books, title, authors, coverURL} = this.props;
 
