@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
-import Book from './Book'
+import Book from './Book';
 
 class Bookshelf extends Component {
-  state = {
-    //add status of books for option values here
-    status: 'none'
-  }
 
   //move this function to app.js
   // moveBooks = (status) =>{
@@ -23,9 +19,7 @@ class Bookshelf extends Component {
           <h2 className="bookshelf-title">{name}</h2>
           <div className="bookshelf-books">
           <ol className="books-grid">
-            {
-
-            }
+          {coverURL}
           </ol>
         </div>
       </div>

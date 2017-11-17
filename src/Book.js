@@ -12,9 +12,8 @@ class Book extends Component {
   }
 
   render(){
+    const { title, authors, coverURL} = this.props;
     return(
-      const { title, authors, coverURL} = this.props;
-
       <div className="book">
         <div className="book-top">
           <div className="book-cover" style={ { width: 128, height: 193, backgroundImage: `url("${ coverURL }")` } }>
@@ -31,7 +30,6 @@ class Book extends Component {
           <div className="book-title">{title}</div>
           <div className="book-authors">{authors}</div>
         </div>
-      </div>
       </div>
     );
   }
