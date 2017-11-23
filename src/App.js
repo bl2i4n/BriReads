@@ -5,6 +5,7 @@ import {Route} from 'react-router-dom';
 import Bookshelf from './Bookshelf';
 
 class BooksApp extends React.Component {
+
   state = {
     books: [
         {
@@ -29,6 +30,11 @@ class BooksApp extends React.Component {
 
   }
 
+  moveBooks = (status) =>{
+    const {books} = this.state;
+    return books.filter((book) => book.status === status);
+  }
+
   render () {
 
     return(
@@ -45,10 +51,13 @@ class BooksApp extends React.Component {
               </div>
               <div className="list-books-content">
                 <Bookshelf name="Currently Reading"
+                books={this.moveBooks('currentlyReading')}
                 />
                 <Bookshelf name="Want to Read"
+                books={this.moveBooks('wantToRead')}
                 />
                 <Bookshelf name="Read"
+                books={this.moveBooks('read')}
                 />
               </div>
             </div>

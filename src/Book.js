@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+//how is this getting the book data?
 class Book extends Component {
 
   state = {

@@ -3,12 +3,6 @@ import Book from './Book';
 
 class Bookshelf extends Component {
 
-  //move this function to app.js
-  // moveBooks = (status) =>{
-  //   const {books} = this.props;
-  //   return books.filter((book) => book.status === status);
-  // }
-
 
   render () {
     const {name, books} = this.props;
@@ -19,7 +13,17 @@ class Bookshelf extends Component {
           <h2 className="bookshelf-title">{name}</h2>
           <div className="bookshelf-books">
           <ol className="books-grid">
-          {coverURL}
+            {
+              books.map((book) => (
+                <li>
+                  <book
+                    authors={book.authors}
+                    title={book.title}
+                    coverURL={book.coverURL}
+                  />
+                </li>
+              ))
+            }
           </ol>
         </div>
       </div>
