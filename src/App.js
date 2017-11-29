@@ -13,26 +13,32 @@ class BooksApp extends React.Component {
           authors: 'Harper Lee',
           status: 'currentlyReading',
           coverURL: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api'
+          id: '123'
         },
         {
           title: 'To Kill a Mockingbird',
           authors: 'Harper Lee',
-          status: 'currentlyReading',
+          status: 'wantToRead',
           coverURL: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api'
+          id: '456'
         },
         {
           title: 'To Kill a Mockingbird',
           authors: 'Harper Lee',
-          status: 'currentlyReading',
+          status: 'read',
           coverURL: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api'
+          id: '789'
         }
     ]
 
   }
 
-  moveBooks = (status) =>{
-    const {books} = this.state;
-    return books.filter((book) => book.status === status);
+  addBook = ({id, status, authors, title, coverURL}) => {
+    console.log(id, status, authors, title, coverURL);
+  }
+
+  onChangeBookProgress = (book, updatedProgress) => {
+    console.log(book);
   }
 
   render () {

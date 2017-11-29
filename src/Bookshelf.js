@@ -5,7 +5,7 @@ class Bookshelf extends Component {
 
 
   render () {
-    const {name, books} = this.props;
+    const {name, books, onChangeBookProgress} = this.props;
 
     //put static html of books here
     return(
@@ -15,11 +15,15 @@ class Bookshelf extends Component {
           <ol className="books-grid">
             {
               books.map((book) => (
-                <li>
-                  <book
+                <li key={book.id}>
+                  <Book
+                    //adding id to find books
+                    id={book.id}
                     authors={book.authors}
                     title={book.title}
                     coverURL={book.coverURL}
+                    status={book.status}
+                    onChangeBookProgress={onChangeBookProgress}
                   />
                 </li>
               ))

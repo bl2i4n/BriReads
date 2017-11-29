@@ -4,23 +4,21 @@ import React, {Component} from 'react';
 class Book extends Component {
 
   state = {
-    progress: 'none'
+    status: 'none'
   };
 
-  //just to check if the selection is pushed to console
-  handleChange = (e) =>{
-    console.log(e);
-  }
-
   render(){
-    const { title, authors, coverURL} = this.props;
+    const { title, authors, coverURL, status, onChangeBookProgress} = this.props;
     return(
       <div className="book">
         <div className="book-top">
           <div className="book-cover" style={ { width: 128, height: 193, backgroundImage: `url("${ coverURL }")` } }>
           </div>
           <div className="book-shelf-changer">
-            <select onChange={this.handleChange}>
+            <select
+              value={status}
+              onChange={ (event)=> onChangeBookProgress(this.props, event.target.value) }
+            >
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
