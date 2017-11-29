@@ -5,7 +5,7 @@ class Bookshelf extends Component {
 
 
   render () {
-    const {name, books, onChangeBookProgress} = this.props;
+    const {name, books, onChangeBookStatus} = this.props;
 
     //put static html of books here
     return(
@@ -23,7 +23,7 @@ class Bookshelf extends Component {
                     title={book.title}
                     coverURL={book.coverURL}
                     status={book.status}
-                    onChangeBookProgress={onChangeBookProgress}
+                    onChangeBookStatus={onChangeBookStatus}
                   />
                 </li>
               ))

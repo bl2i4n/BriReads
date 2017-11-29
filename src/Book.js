@@ -8,7 +8,7 @@ class Book extends Component {
   };
 
   render(){
-    const { title, authors, coverURL, status, onChangeBookProgress} = this.props;
+    const { title, authors, coverURL, status, onChangeBookStatus} = this.props;
     return(
       <div className="book">
         <div className="book-top">
@@ -17,7 +17,7 @@ class Book extends Component {
           <div className="book-shelf-changer">
             <select
               value={status}
-              onChange={ (event)=> onChangeBookProgress(this.props, event.target.value) }
+              onChange={ (event)=> onChangeBookStatus(this.props, event.target.value) }
             >
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>

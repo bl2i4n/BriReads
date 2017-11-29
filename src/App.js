@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import {Route} from 'react-router-dom';
 import Bookshelf from './Bookshelf';
+import Library from './Library';
 
 class BooksApp extends React.Component {
 
@@ -12,21 +13,21 @@ class BooksApp extends React.Component {
           title: 'To Kill a Mockingbird',
           authors: 'Harper Lee',
           status: 'currentlyReading',
-          coverURL: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api'
+          coverURL: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api',
           id: '123'
         },
         {
           title: 'To Kill a Mockingbird',
           authors: 'Harper Lee',
           status: 'wantToRead',
-          coverURL: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api'
+          coverURL: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api',
           id: '456'
         },
         {
           title: 'To Kill a Mockingbird',
           authors: 'Harper Lee',
           status: 'read',
-          coverURL: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api'
+          coverURL: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api',
           id: '789'
         }
     ]
@@ -35,13 +36,40 @@ class BooksApp extends React.Component {
 
   addBook = ({id, status, authors, title, coverURL}) => {
     console.log(id, status, authors, title, coverURL);
-  }
+    this.setState({
+      books: this.state.books.concat({
+        title,
+        authors,
+        status,
+        coverURL,
+        id
+      })
+    });
+    console.log(this.state.books);
+  };
 
-  onChangeBookProgress = (book, updatedProgress) => {
+  changeBookStatus = (book, updatedStatus) => {
     console.log(book);
-  }
+    const {books} = this.state;
+    let bookIndex = books.findIndex((key) =>{
+      return key.id  === book.id;
+    });
+    if (bookIndex === -1){
+      const newBook = Object.assign({}, book);
+      newBook.status = updatedStatus;
+      this.addBook(newBook);
+      return;
+    }
+
+    const stateBooks = Object.assign([], books);
+    stateBooks[bookIndex] = Object.assign({}, stateBooks[bookIndex]);
+    stateBooks[bookIndex].status = updatedStatus;
+
+    this.setState({books:stateBooks});
+  };
 
   render () {
+    const {books} = this.state;
 
     return(
       <div className="app">
@@ -51,22 +79,10 @@ class BooksApp extends React.Component {
         )} />
 
         <Route exact path="/" render={ () => (
-            <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>
-              <div className="list-books-content">
-                <Bookshelf name="Currently Reading"
-                books={this.moveBooks('currentlyReading')}
-                />
-                <Bookshelf name="Want to Read"
-                books={this.moveBooks('wantToRead')}
-                />
-                <Bookshelf name="Read"
-                books={this.moveBooks('read')}
-                />
-              </div>
-            </div>
+          <Library
+            books={books}
+            onChangeBookStatus={this.changeBookStatus}
+          />
         )} />
 
       </div>
