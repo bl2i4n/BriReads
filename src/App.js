@@ -7,48 +7,33 @@ import Library from './Library';
 import Search from './Search';
 
 class BooksApp extends React.Component {
-
-  state = {
-    books: [
-        {
-          title: 'To Kill a Mockingbird',
-          authors: 'Harper Lee',
-          status: 'currentlyReading',
-          coverURL: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api',
-          id: '123'
-        },
-        {
-          title: 'To Kill a Mockingbird',
-          authors: 'Harper Lee',
-          status: 'wantToRead',
-          coverURL: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api',
-          id: '456'
-        },
-        {
-          title: 'To Kill a Mockingbird',
-          authors: 'Harper Lee',
-          status: 'read',
-          coverURL: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api',
-          id: '789'
-        }
-    ]
-
+  constructor (){
+    super();
+    this.state = BooksAPI.getAll().then((books) => {
+      this.setState({books: books});
+    });
   }
 
-  addBook = ({id, status, authors, title, coverURL}) => {
-    console.log(id, status, authors, title, coverURL);
-    this.setState({
-      books: this.state.books.concat({
-        title,
-        authors,
-        status,
-        coverURL,
-        id
-      })
+  addBook = (book) => {
+    console.log(book);
+
+    BooksAPI.update(book,shelf).then(this.setState({
+      books: this.state.books.concat(book)
+    }));
+
+    BooksAPI.getAll().then((books) => {
+      console.log(books);
     });
+
     console.log(this.state.books);
   };
 
+  /**
+  Changes the book state or Adds it to the Library in a stateBooks
+  @param {string} id
+  @param {string} status
+  @param {string} shelf
+  */
   changeBookStatus = (book, updatedStatus) => {
     console.log(book);
     const {books} = this.state;
@@ -66,7 +51,10 @@ class BooksApp extends React.Component {
     stateBooks[bookIndex] = Object.assign({}, stateBooks[bookIndex]);
     stateBooks[bookIndex].status = updatedStatus;
 
-    this.setState({books:stateBooks});
+    BooksAPI.update(book, updatedStatus).then(
+      this.setState({books:stateBooks})
+    );
+
   };
 
   render () {
