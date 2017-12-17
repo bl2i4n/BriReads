@@ -17,7 +17,7 @@ class BooksApp extends React.Component {
   addBook = (book) => {
     console.log(book);
 
-    BooksAPI.update(book,shelf).then(this.setState({
+    BooksAPI.update(book, shelf).then(this.setState({
       books: this.state.books.concat(book)
     }));
 
@@ -34,7 +34,7 @@ class BooksApp extends React.Component {
   @param {string} status
   @param {string} shelf
   */
-  changeBookStatus = (book, updatedStatus) => {
+  changeBookShelf = (book, updatedShelf) => {
     console.log(book);
     const {books} = this.state;
     let bookIndex = books.findIndex((key) =>{
@@ -42,18 +42,25 @@ class BooksApp extends React.Component {
     });
     if (bookIndex === -1){
       const newBook = Object.assign({}, book);
-      newBook.status = updatedStatus;
+      newBook.shelf = updatedShelf;
       this.addBook(newBook);
       return;
     }
 
     const stateBooks = Object.assign([], books);
     stateBooks[bookIndex] = Object.assign({}, stateBooks[bookIndex]);
-    stateBooks[bookIndex].status = updatedStatus;
+    stateBooks[bookIndex].shelf = updatedShelf;
 
-    BooksAPI.update(book, updatedStatus).then(
+    BooksAPI.update(book, updatedShelf).then(
       this.setState({books:stateBooks})
     );
+
+    removeBook = (book) => {
+      this.setState((state) => ({
+        books: state.books.filter((book) => book.id !== book.id)
+      }))
+
+    };
 
   };
 
@@ -66,14 +73,14 @@ class BooksApp extends React.Component {
         <Route path="/search" render={ () => (
             <Search
               libraryBooks={books}
-              onChangeBookStatus={this.changeBookStatus}
+              onChangeBookShelf={this.changeBookShelf}
             />
         )} />
 
         <Route exact path="/" render={ () => (
           <Library
             books={books}
-            onChangeBookStatus={this.changeBookStatus}
+            onChangeBookShelf={this.changeBookShelf}
           />
         )} />
 
