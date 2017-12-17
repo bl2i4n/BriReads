@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import * as BooksAPI from './src/BooksAPI';
+import * as BooksAPI from './BooksAPI';
 import Book from './Book'
 
 class Search extends Component {
@@ -34,6 +34,7 @@ class Search extends Component {
   };
   render(){
     const {books} = this.state;
+    const {onChangeBookStatus} = this.props;
     return(
       <div className="search-books">
       <div className="search-books-bar">
@@ -56,15 +57,18 @@ class Search extends Component {
             books.map((book) => (
               <li key={book.title}>
                 <Book
+                  id={book.id}
+                  status={book.status}
                   authors={book.authors}
                   title={book.title}
                   coverURL={book.coverURL}
+                  onChangeBookStatus={onChangeBookStatus}
                 />
               </li>
             ))
           }
         </ol>
-
+        </div>
       </div>
     );
   }

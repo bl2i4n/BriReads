@@ -4,6 +4,7 @@ import './App.css'
 import {Route} from 'react-router-dom';
 import Bookshelf from './Bookshelf';
 import Library from './Library';
+import Search from './Search';
 
 class BooksApp extends React.Component {
 
@@ -75,7 +76,10 @@ class BooksApp extends React.Component {
       <div className="app">
         // TODO: need to create the search component
         <Route path="/search" render={ () => (
-            <div>Hello MyReads</div>
+            <Search
+              books={books}
+              onChangeBookStatus={this.changeBookStatus}
+            />
         )} />
 
         <Route exact path="/" render={ () => (
