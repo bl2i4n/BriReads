@@ -15,7 +15,7 @@ class Book extends Component {
 
   componentDidMount(){
     const{shelf} = this.props;
-    this.setState({shelf})
+    this.setState({shelf});
   };
 
   render(){
@@ -26,7 +26,7 @@ class Book extends Component {
     return(
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={ { width: 250, height: 193, backgroundImage: `url("${ thumbnail }")` } }>
+          <div className="book-cover" style={ { width: 128, height: 193, backgroundImage: `url("${ thumbnail }")` } }>
           </div>
           <div className="book-shelf-changer">
             <select

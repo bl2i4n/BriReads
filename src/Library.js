@@ -3,13 +3,13 @@ import {Link} from 'react-router-dom';
 import Bookshelf from './Bookshelf';
 
 class Library extends Component {
-  moveBooks = (status) => {
-    const {books} = this.props;
-    return books.filter((book) => book.status === status);
+  moveBooks = (shelf) => {
+    const { books } = this.props;
+    return books.filter((book) => book.shelf === shelf);
   }
 
   render () {
-   const { onChangeBookStatus } = this.props;
+   const { onChangeBookShelf } = this.props;
 
    return(
        <div className="list-books">
@@ -21,17 +21,17 @@ class Library extends Component {
            <Bookshelf
              name="Currently Reading"
              books={ this.moveBooks('currentlyReading') }
-             onChangeBookStatus={ onChangeBookStatus }
+             onChangeBookShelf={ onChangeBookShelf }
            />
            <Bookshelf
              name="Want to Read"
              books={ this.moveBooks('wantToRead') }
-             onChangeBookStatus={ onChangeBookStatus }
+             onChangeBookShelf={ onChangeBookShelf }
            />
            <Bookshelf
              name="Read"
              books={ this.moveBooks('read') }
-             onChangeBookStatus={ onChangeBookStatus }
+             onChangeBookShelf={ onChangeBookShelf }
            />
          </div>
        </div>
