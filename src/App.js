@@ -72,7 +72,6 @@ class BooksApp extends React.Component {
 
     return(
       <div className="app">
-        // TODO: need to create the search component
         <Route path="/search" render={ () => (
             <Search
               libraryBooks={books}
